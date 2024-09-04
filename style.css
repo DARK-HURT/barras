@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: transparent; /* Fondo transparente para Streamlabs */
+    font-family: 'Orbitron', sans-serif; /* Fuente futurista */
+}
+
+.info-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+    border: 2px solid #00FFFF; /* Borde de neón */
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00FFFF; /* Efecto de brillo */
+}
+
+.info-item {
+    color: #FFFFFF; /* Texto blanco */
+    font-size: 20px;
+    text-shadow: 0 0 10px #00FFFF; /* Sombra luminosa */
+}
+
+@keyframes neon-blink {
+    0%, 100% {
+        text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+    }
+    50% {
+        text-shadow: 0 0 20px #00FF00, 0 0 30px #00FF00, 0 0 40px #00FF00;
+    }
+}
+
+.info-item {
+    animation: neon-blink 1.5s infinite alternate;
+}
