@@ -10,28 +10,40 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
-    border: 2px solid #00FFFF; /* Borde de neón */
-    border-radius: 10px;
-    box-shadow: 0 0 20px #00FFFF; /* Efecto de brillo */
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); /* Fondo con degradado */
+    border: 3px solid #00FFFF; /* Borde de neón */
+    border-radius: 15px;
+    box-shadow: 0 0 25px #00FFFF, 0 0 50px #00FF00; /* Efecto de brillo dual */
+    animation: pulse-border 3s infinite; /* Animación de pulsación del borde */
 }
 
 .info-item {
     color: #FFFFFF; /* Texto blanco */
-    font-size: 20px;
-    text-shadow: 0 0 10px #00FFFF; /* Sombra luminosa */
+    font-size: 22px;
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; /* Sombra luminosa */
+    margin: 0 20px;
+    animation: flicker 2s infinite; /* Añadido un efecto de parpadeo */
 }
 
-@keyframes neon-blink {
+/* Animación de pulsación para el borde */
+@keyframes pulse-border {
     0%, 100% {
-        text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+        box-shadow: 0 0 25px #00FFFF, 0 0 50px #00FF00;
     }
     50% {
-        text-shadow: 0 0 20px #00FF00, 0 0 30px #00FF00, 0 0 40px #00FF00;
+        box-shadow: 0 0 35px #00FF00, 0 0 60px #00FFFF;
     }
 }
 
-.info-item {
-    animation: neon-blink 1.5s infinite alternate;
+/* Efecto de parpadeo para el texto */
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+    }
+    50% {
+        opacity: 0.8;
+        text-shadow: 0 0 15px #00FF00, 0 0 30px #00FF00;
+    }
 }
