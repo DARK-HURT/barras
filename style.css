@@ -13,7 +13,7 @@ body {
     height: 100%;
     background-image: url('769704031451887105.png'); /* Reemplaza con la ruta de tu imagen de topografía */
     background-size: 100%;
-    animation: moveBackground 120s linear infinite; /* Animación para mover el fondo */
+    animation: moveBackground 70s linear infinite; /* Animación para mover el fondo */
 }
 
 /* Animación de movimiento del fondo */
