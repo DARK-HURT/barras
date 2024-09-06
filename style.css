@@ -1,122 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Overlay Animación</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #FFFFFF; /* Fondo blanco */
-        }
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000; /* Fondo blanco */
+}
 
-        .animated-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('image.png'); /* Reemplaza con la ruta de tu imagen de topografía */
-            background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
-            animation: moveBackground 30s linear infinite; /* Animación para mover el fondo */
-        }
+/* Estilos globales del cuerpo de la página */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #FFFFFF; /* Fondo blanco */
+}
 
-        /* Animación de movimiento circular del fondo */
-        @keyframes moveBackground {
-            0% {
-                background-position: 50% 50%;
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            50% {
-                background-position: 50% 50%;
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-            100% {
-                background-position: 50% 50%;
-                transform: translate(-50%, -50%) rotate(720deg);
-            }
-        }
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%; /* Duplicar el tamaño del fondo para permitir el movimiento completo */
+    height: 200%;
+    background-image: url('image.png'); /* Reemplaza con la ruta de tu imagen de topografía */
+    background-size: cover;
+    z-index: -1; /* Asegura que el fondo esté detrás del HUD */
+    animation: moveBackground 30s linear infinite; /* Animación del fondo */
+}
 
-        .overlay {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none; /* Para que los elementos debajo se puedan interactuar */
-        }
 
-        .reticula {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
+/* Contenedor del HUD */
+.hud {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite que otros elementos interactuables funcionen debajo */
+    animation: navigateMap 30s linear infinite; /* Aplicación de la animación al HUD */
+    color: #000000; /* Color de texto */
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+}
 
-        .indicadores {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
+/* Información del HUD */
+.hud-info {
+    position: absolute;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5;
+}
 
-        .indicador {
-            position: absolute;
-            color: #fff;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-        }
+.hud-info.top-left { top: 5%; left: 5%; }
+.hud-info.top-right { top: 5%; right: 5%; }
+.hud-info.bottom-left { bottom: 5%; left: 5%; }
+.hud-info.bottom-right { bottom: 5%; right: 5%; }
 
-        .indicador.longitud {
-            top: 10px;
-            right: 10px;
-            animation: moveLongitud 5s linear infinite;
-        }
+/* Indicadores de Altitud */
+.altitude-indicator, .longitude-indicator {
+    position: absolute;
+    background-color: #000000;
+}
 
-        .indicador.altitud {
-            bottom: 10px;
-            left: 10px;
-            animation: moveAltitud 5s linear infinite;
-        }
+.altitude-indicator {
+    width: 2px;
+    height: 60%;
+    left: 10%;
+    top: 20%;
+}
 
-        @keyframes moveLongitud {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(10px);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
+.altitude-indicator.right {
+    left: auto;
+    right: 10%;
+}
 
-        @keyframes moveAltitud {
-            0% {
-                transform: translateX(0);
-            }
-            50% {
-                transform: translateX(10px);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="animated-background"></div>
-    <div class="overlay">
-        <div class="reticula"></div>
-        <div class="indicadores">
-            <div class="indicador longitud">Longitud: 123°</div>
-            <div class="indicador altitud">Altitud: 456m</div>
-        </div>
-    </div>
-</body>
-</html>
+/* Indicadores de Longitud */
+.longitude-indicator {
+    width: 80%;
+    height: 2px;
+    top: 20%;
+    left: 10%;
+}
+
+.longitude-indicator.bottom {
+    top: auto;
+    bottom: 20%;
+}
+
+/* Barras de Estado */
+.hud-bar {
+    position: absolute;
+    text-align: center;
+    font-weight: bold;
+}
+
+.hud-bar:first-of-type { top: 40%; left: 50%; transform: translate(-50%, -50%); }
+.hud-bar.hull { bottom: 30%; left: 50%; transform: translate(-50%, -50%); }
+
+.progress {
+    width: 100%;
+    height: 5px;
+    background-color: #333;
+    margin-top: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #FFFFFF;
+}
+
+.crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px; /* Tamaño del círculo */
+    height: 100px; /* Tamaño del círculo */
+    background-color: transparent;
+    border: 2px solid #000000; /* Borde del círculo */
+    border-radius: 50%; /* Hace que sea un círculo */
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diamond {
+    width: 40px; /* Ancho del rombo */
+    height: 40px; /* Alto del rombo */
+    background-color: transparent;
+    border: 2px solid #000000; /* Borde del rombo */
+    transform: rotate(45deg); /* Rota el cuadrado para formar un rombo */
+    animation: rotateDiamond 4s linear infinite; /* Animación de rotación del rombo */
+}
+
+/* Animación para rotar el rombo */
+@keyframes rotateDiamond {
+    0% {
+        transform: rotate(45deg); /* Posición inicial del rombo */
+    }
+    100% {
+        transform: rotate(405deg); /* Rota el rombo 360 grados adicionales */
+    }
+}
+
+.crosshair::before,
+.crosshair::after {
+    content: '';
+    position: absolute;
+    background-color: #000000;
+}
+
+.crosshair::before {
+    width: 100px;
+    height: 2px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.crosshair::after {
+    width: 2px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Animación de trayectoria del HUD */
+@keyframes navigateMap {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(-100px, 50px);
+    }
+    50% {
+        transform: translate(-200px, 100px);
+    }
+    75% {
+        transform: translate(-300px, 50px);
+    }
+    100% {
+        transform: translate(-400px, 0);
+    }
+}
+
+/* Animación del movimiento del fondo */
+@keyframes moveBackground {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 50% 50%;
+    }
+}
