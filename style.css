@@ -31,7 +31,6 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none; /* Permite que otros elementos interactuables funcionen debajo */
-    animation: navigateMap 30s linear infinite; /* Aplicación de la animación al HUD */
     color: #000000; /* Color de texto */
     font-family: 'Arial', sans-serif;
     font-size: 16px;
