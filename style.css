@@ -22,7 +22,6 @@ body {
     background-image: url('image.png'); /* Reemplaza con la ruta de tu imagen de topografía */
     background-size: cover;
     z-index: -1; /* Asegura que el fondo esté detrás del HUD */
-    animation: moveBackground 30s linear infinite; /* Animación del fondo */
 }
 
 
@@ -160,25 +159,6 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
-
-/* Animación de trayectoria del HUD */
-@keyframes navigateMap {
-    0% {
-        transform: translate(0, 0);
-    }
-    25% {
-        transform: translate(-100px, 50px);
-    }
-    50% {
-        transform: translate(-200px, 100px);
-    }
-    75% {
-        transform: translate(-300px, 50px);
-    }
-    100% {
-        transform: translate(-400px, 0);
-    }
 }
 
 /* Animación del movimiento del fondo */
